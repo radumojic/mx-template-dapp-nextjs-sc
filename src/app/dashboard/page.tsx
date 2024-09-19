@@ -7,7 +7,8 @@ import {
   BatchTransactions,
   PingPongRaw,
   PingPongService,
-  Transactions
+  Transactions,
+  SmartContractUI
 } from './widgets';
 import { AuthRedirectWrapper } from '@/wrappers';
 import { ClientHooks } from '@/components/ClientHooks';
@@ -20,6 +21,14 @@ const WIDGETS: WidgetType[] = [
     widget: Account,
     description: 'Connected account details',
     reference: 'https://docs.multiversx.com/sdk-and-tools/sdk-dapp/#account'
+  },
+  {
+    title: 'Smart Contract',
+    widget: SmartContractUI,
+    description: 'Smart Contract Interactions',
+    reference:
+      'https://docs.multiversx.com/sdk-and-tools/indices/es-index-transactions/',
+    anchor: 'smart-contract'
   },
   {
     title: 'Ping & Pong (Manual)',
