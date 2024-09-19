@@ -10,6 +10,9 @@
   }
 }
 
+@import './modal.css';
+@import './tooltip.css';
+
 .mx-transactions > td {
   @apply p-2;
 }
