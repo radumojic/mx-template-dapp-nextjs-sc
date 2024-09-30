@@ -1,6 +1,6 @@
 import { useSCExplorerContext } from '@multiversx/sdk-dapp-sc-explorer/contexts/SCExplorerContextProvider';
 import { EndpointRead } from '@multiversx/sdk-dapp-sc-explorer/components/ContractEndpoints/ContractEndpoint/components/EndpointRead';
-import { EndpointDefinition } from '@multiversx/sdk-core/out';
+import { EndpointDefinition } from '@multiversx/sdk-core/out/smartcontracts';
 import { ContractEndpointMutabilityEnum } from '@multiversx/sdk-dapp-sc-explorer/types';
 
 export const Endpoints = () => {
