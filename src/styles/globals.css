@@ -12,6 +12,7 @@
 
 @import './modal.css';
 @import './tooltip.css';
+@import './sdk-sc-explorer.css';
 
 .mx-transactions > td {
   @apply p-2;
