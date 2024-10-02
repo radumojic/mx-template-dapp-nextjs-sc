@@ -39,7 +39,7 @@ export const SmartContractDefaultUI = () => {
     cardItemContainerClassName: '',
     buttonClassName: 'hidden', //expand all reset
     buttonPrimaryClassName:
-      'rounded-lg px-3 py-2 text-center bg-blue-600 text-white hover:bg-blue-700 disabled:bg-gray-200 disabled:text-black disabled:cursor-not-allowed', // send transac query
+      'rounded-lg px-3 py-2 text-center bg-blue-600 text-white hover:bg-blue-700 disabled:bg-gray-200 disabled:text-black disabled:cursor-not-allowed mt-3', // send transac query
     buttonSecondaryClassName: '',
     inputClassName:
       'text-sm border border-gray-200 bg-gray-100 rounded-xl overflow-auto p-3.5 w-full', // input fields

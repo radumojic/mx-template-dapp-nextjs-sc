@@ -4,8 +4,8 @@ import {
   NativeAuth,
   BatchTransactions,
   Transactions,
-  SmartContractUI,
-  SmartContractDefaultUI
+  SmartContractUI
+  // SmartContractDefaultUI
 } from './widgets';
 import { AuthRedirectWrapper } from '@/wrappers';
 import { ClientHooks } from '@/components/ClientHooks';
@@ -19,22 +19,22 @@ const WIDGETS: WidgetType[] = [
     description: 'Connected account details',
     reference: 'https://docs.multiversx.com/sdk-and-tools/sdk-dapp/#account'
   },
-  {
-    title: 'Smart Contract',
-    widget: SmartContractUI,
-    description: 'Smart Contract Interactions',
-    reference:
-      'https://docs.multiversx.com/sdk-and-tools/indices/es-index-transactions/',
-    anchor: 'smart-contract'
-  },
-  {
-    title: 'Smart Contract Default',
-    widget: SmartContractDefaultUI,
-    description: 'Smart Contract Interactions',
-    reference:
-      'https://docs.multiversx.com/sdk-and-tools/indices/es-index-transactions/',
-    anchor: 'smart-contract'
-  },
+  // {
+  //   title: 'Smart Contract',
+  //   widget: SmartContractUI,
+  //   description: 'Smart Contract Interactions',
+  //   reference:
+  //     'https://docs.multiversx.com/sdk-and-tools/indices/es-index-transactions/',
+  //   anchor: 'smart-contract'
+  // },
+  // {
+  //   title: 'Smart Contract Default',
+  //   widget: SmartContractDefaultUI,
+  //   description: 'Smart Contract Interactions',
+  //   reference:
+  //     'https://docs.multiversx.com/sdk-and-tools/indices/es-index-transactions/',
+  //   anchor: 'smart-contract'
+  // },
   {
     title: 'Sign message',
     widget: SignMessage,
@@ -73,6 +73,7 @@ export default function Dashboard() {
       <ClientHooks />
       <AuthRedirectWrapper>
         <div className='flex flex-col gap-6 max-w-3xl w-full'>
+          <SmartContractUI />
           {WIDGETS.map((element) => (
             <Widget key={element.title} {...element} />
           ))}
