@@ -66,12 +66,12 @@
   color: theme(colors.neutral.400);
 }
 .mx-sdk-sc-input-invalid {
-  border-color: var(--danger);
+  border-color: theme(colors.red.600);
 }
 .mx-sdk-sc-input-invalid-feedback {
   width: 100%;
   font-size: 10px;
-  color: var(--danger);
+  color: theme(colors.red.600);
 }
 .mx-sdk-sc-input-group .mx-sdk-sc-field {
   background-color: theme(colors.neutral.200);
@@ -80,7 +80,7 @@
 .mx-sdk-sc-input-group
   .mx-sdk-sc-input-invalid
   + .mx-sdk-sc-input-group-append {
-  border: 1px solid var(--danger);
+  border: 1px solid theme(colors.red.600);
   border-left: 0;
 }
 .mx-sdk-sc-input-group-append-icon {
@@ -112,7 +112,7 @@
 }
 .mx-sdk-sc-general-warning,
 .mx-sdk-sc-general-error {
-  color: var(--danger);
+  color: theme(colors.red.600);
   margin-top: 1rem;
 }
 .mx-sdk-sc-general-warning p,
@@ -120,10 +120,10 @@
   margin-bottom: 0;
 }
 .mx-sdk-sc-general-error {
-  color: var(--danger);
+  color: theme(colors.red.600);
 }
 .mx-sdk-sc-general-warning {
-  color: var(--warning);
+  color: theme(colors.orange.400);
 }
 .mx-sdk-sc-amount-select-input-group {
   margin-top: 2rem;
@@ -545,7 +545,7 @@
   --dapp-form-input-bg: theme(colors.neutral.100);
   --dapp-form-placeholder-color: theme(colors.neutral.500);
   --dapp-form-input-color: theme(colors.neutral.300);
-  --dapp-form-error-color: var(--danger);
+  --dapp-form-error-color: theme(colors.red.600);
   --dapp-form-max-btn-bg: theme(colors.neutral.200);
   --dapp-form-max-hover-btn-bg: theme(colors.neutral.200);
   --dapp-form-max-btn-color: theme(colors.neutral.500);
