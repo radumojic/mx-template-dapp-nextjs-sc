@@ -1,29 +1,84 @@
-import { useSCExplorerContext } from '@multiversx/sdk-dapp-sc-explorer/contexts/SCExplorerContextProvider';
 import { EndpointRead } from '@multiversx/sdk-dapp-sc-explorer/components/ContractEndpoints/ContractEndpoint/components/EndpointRead';
-import { EndpointDefinition } from '@multiversx/sdk-core/out';
 import { ContractEndpointMutabilityEnum } from '@multiversx/sdk-dapp-sc-explorer/types';
+import {
+  useGetContractEndpoints,
+  useGetContractEndpointCount,
+  useGetAccountTokens
+} from '@multiversx/sdk-dapp-sc-explorer/hooks';
+
+import { Card } from '@/components/Card';
+
+import { EndpointMutate } from './EndpointMutate';
+import { useEffect } from 'react';
 
 export const Endpoints = () => {
-  const { smartContract } = useSCExplorerContext();
+  const getAccountTokens = useGetAccountTokens();
+  const readEndpoints = useGetContractEndpoints({
+    mutability: ContractEndpointMutabilityEnum.readonly
+  });
+  const mutableEndpoints = useGetContractEndpoints({
+    mutability: ContractEndpointMutabilityEnum.mutable
+  });
 
-  const endpoints = smartContract?.abiRegistry
-    ?.endpoints as EndpointDefinition[];
+  const { readEndpointsCount, writeEndpointsCount } =
+    useGetContractEndpointCount();
 
-  if (!(endpoints && endpoints.length > 0)) {
+  const handleEndpointSubmit = async (writeEndpointsCount?: number) => {
+    if (writeEndpointsCount && writeEndpointsCount > 0) {
+      await getAccountTokens();
+    }
+  };
+
+  useEffect(() => {
+    handleEndpointSubmit(writeEndpointsCount);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [writeEndpointsCount]);
+
+  if (!([...readEndpoints, ...mutableEndpoints].length > 0)) {
     return null;
   }
 
   return (
-    <div>
-      {endpoints
-        .filter(
-          (endpoint) =>
-            endpoint.modifiers.mutability ===
-            ContractEndpointMutabilityEnum.readonly
-        )
-        .map((endpoint: EndpointDefinition) => {
-          return <EndpointRead endpoint={endpoint} key={endpoint.name} />;
-        })}
+    <div className='mx-sdk-sc flex flex-col gap-6 max-w-3xl w-full'>
+      {readEndpointsCount && (
+        <>
+          <div className='flex flex-col flex-1 rounded-xl bg-white p-6 justify-center'>
+            Read Endpoints: {readEndpointsCount}
+          </div>
+          {readEndpoints.map((endpoint, index) => (
+            <Card
+              title={endpoint.name ?? ''}
+              description={`${index + 1}/${readEndpointsCount}`}
+              reference='https://docs.multiversx.com/sdk-and-tools/sdk-js/sdk-js-cookbook-v13#contract-abis'
+              anchor={`${endpoint.name}-${index}`}
+              key={`${endpoint.name}-${index}`}
+            >
+              <EndpointRead endpoint={endpoint} />
+            </Card>
+          ))}
+        </>
+      )}
+
+      <br />
+
+      {writeEndpointsCount && (
+        <>
+          <div className='flex flex-col flex-1 rounded-xl bg-white p-6 justify-center'>
+            Mutable Endpoints: {writeEndpointsCount}
+          </div>
+          {mutableEndpoints.map((endpoint, index) => (
+            <Card
+              title={endpoint.name ?? ''}
+              description={`${index + 1}/${writeEndpointsCount}`}
+              reference='https://docs.multiversx.com/sdk-and-tools/sdk-js/sdk-js-cookbook-v13#contract-abis'
+              anchor={endpoint.name ?? ''}
+              key={`${endpoint.name}-${index}`}
+            >
+              <EndpointMutate endpoint={endpoint} key={endpoint.name} />
+            </Card>
+          ))}
+        </>
+      )}
     </div>
   );
 };

@@ -1,5 +1,7 @@
 'use client';
-import { AppContextProvider } from '@multiversx/sdk-dapp-sc-explorer/contexts';
+import { ScExplorerContainer } from '@multiversx/sdk-dapp-sc-explorer/containers/ScExplorerContainer';
+import { ContractEndpoints } from '@multiversx/sdk-dapp-sc-explorer/components/ContractEndpoints';
+import { ContractEndpointMutabilityEnum } from '@multiversx/sdk-dapp-sc-explorer/types';
 import { useGetLoginInfo, useGetAccountInfo } from '@multiversx/sdk-dapp/hooks';
 
 import json from '@/contracts/ping-pong.abi.json';
@@ -7,9 +9,7 @@ import json from '@/contracts/ping-pong.abi.json';
 import { useGetSmartContractDetails } from './hooks';
 import { environment, contractAddress } from '@/config';
 
-import { Endpoints } from './components';
-
-export const SmartContractUI = () => {
+export const SmartContractDefaultUI = () => {
   const { smartContractDetails, isLoading } = useGetSmartContractDetails();
 
   if (isLoading) {
@@ -42,7 +42,7 @@ export const SmartContractUI = () => {
       'rounded-lg px-3 py-2 text-center bg-blue-600 text-white hover:bg-blue-700 disabled:bg-gray-200 disabled:text-black disabled:cursor-not-allowed mt-3', // send transac query
     buttonSecondaryClassName: '',
     inputClassName:
-      'text-sm border border-gray-200 bg-white rounded-xl overflow-auto p-3.5 w-full', // input fields
+      'text-sm border border-gray-200 bg-gray-100 rounded-xl overflow-auto p-3.5 w-full', // input fields
     inputInvalidClassName: '',
     inputInvalidFeedbackClassName: '',
     inputGroupClassName: '', // next to input & address
@@ -54,27 +54,35 @@ export const SmartContractUI = () => {
   };
 
   return (
-    <AppContextProvider
-      accountConsumerHandlers={{
-        useGetLoginInfo,
-        useGetAccountInfo
-      }}
-      smartContract={{
-        contractAddress,
-        abi: json,
-        deployedContractDetails: smartContractDetails
-      }}
-      config={{
-        canMutate: true,
-        canLoadAbi: true,
-        canDeploy: true,
-        canUpgrade: true,
-        canDisplayContractDetails: true
-      }}
-      networkConfig={{ environment }}
-      customClassNames={customClassNames}
-    >
-      <Endpoints />
-    </AppContextProvider>
+    <div className='flex flex-col gap-6'>
+      <ScExplorerContainer
+        accountConsumerHandlers={{
+          useGetLoginInfo,
+          useGetAccountInfo
+        }}
+        smartContract={{
+          contractAddress,
+          abi: json,
+          deployedContractDetails: smartContractDetails
+        }}
+        config={{
+          canMutate: true,
+          canLoadAbi: true,
+          canDeploy: true,
+          canUpgrade: true,
+          canDisplayContractDetails: true
+        }}
+        networkConfig={{ environment }}
+        customClassNames={customClassNames}
+        className='mx-sdk-sc'
+      >
+        <ContractEndpoints
+          mutability={ContractEndpointMutabilityEnum.readonly}
+        />
+        <ContractEndpoints
+          mutability={ContractEndpointMutabilityEnum.mutable}
+        />
+      </ScExplorerContainer>
+    </div>
   );
 };

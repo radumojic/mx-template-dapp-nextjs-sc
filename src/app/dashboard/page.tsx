@@ -1,14 +1,11 @@
-import { contractAddress } from '@/config';
 import {
   Account,
-  PingPongAbi,
   SignMessage,
   NativeAuth,
   BatchTransactions,
-  PingPongRaw,
-  PingPongService,
   Transactions,
   SmartContractUI
+  // SmartContractDefaultUI
 } from './widgets';
 import { AuthRedirectWrapper } from '@/wrappers';
 import { ClientHooks } from '@/components/ClientHooks';
@@ -22,40 +19,22 @@ const WIDGETS: WidgetType[] = [
     description: 'Connected account details',
     reference: 'https://docs.multiversx.com/sdk-and-tools/sdk-dapp/#account'
   },
-  {
-    title: 'Smart Contract',
-    widget: SmartContractUI,
-    description: 'Smart Contract Interactions',
-    reference:
-      'https://docs.multiversx.com/sdk-and-tools/indices/es-index-transactions/',
-    anchor: 'smart-contract'
-  },
-  {
-    title: 'Ping & Pong (Manual)',
-    widget: PingPongRaw,
-    description:
-      'Smart Contract interactions using manually formulated transactions',
-    reference:
-      'https://docs.multiversx.com/sdk-and-tools/indices/es-index-transactions/',
-    anchor: 'ping-pong-manual'
-  },
-  {
-    title: 'Ping & Pong (ABI)',
-    widget: PingPongAbi,
-    description:
-      'Smart Contract interactions using the ABI generated transactions',
-    reference:
-      'https://docs.multiversx.com/sdk-and-tools/sdk-js/sdk-js-cookbook/#using-interaction-when-the-abi-is-available',
-    anchor: 'ping-pong-abi'
-  },
-  {
-    title: 'Ping & Pong (Backend)',
-    widget: PingPongService,
-    description:
-      'Smart Contract interactions using the backend generated transactions',
-    reference: 'https://github.com/multiversx/mx-ping-pong-service',
-    anchor: 'ping-pong-backend'
-  },
+  // {
+  //   title: 'Smart Contract',
+  //   widget: SmartContractUI,
+  //   description: 'Smart Contract Interactions',
+  //   reference:
+  //     'https://docs.multiversx.com/sdk-and-tools/indices/es-index-transactions/',
+  //   anchor: 'smart-contract'
+  // },
+  // {
+  //   title: 'Smart Contract Default',
+  //   widget: SmartContractDefaultUI,
+  //   description: 'Smart Contract Interactions',
+  //   reference:
+  //     'https://docs.multiversx.com/sdk-and-tools/indices/es-index-transactions/',
+  //   anchor: 'smart-contract'
+  // },
   {
     title: 'Sign message',
     widget: SignMessage,
@@ -85,14 +64,6 @@ const WIDGETS: WidgetType[] = [
     description: 'List transactions for the connected account',
     reference:
       'https://api.elrond.com/#/accounts/AccountController_getAccountTransactions'
-  },
-  {
-    title: 'Transactions (Ping & Pong)',
-    widget: Transactions,
-    props: { receiver: contractAddress },
-    description: 'List transactions filtered for a given Smart Contract',
-    reference:
-      'https://api.elrond.com/#/accounts/AccountController_getAccountTransactions'
   }
 ];
 
@@ -102,6 +73,7 @@ export default function Dashboard() {
       <ClientHooks />
       <AuthRedirectWrapper>
         <div className='flex flex-col gap-6 max-w-3xl w-full'>
+          <SmartContractUI />
           {WIDGETS.map((element) => (
             <Widget key={element.title} {...element} />
           ))}
