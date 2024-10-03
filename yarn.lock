@@ -1024,10 +1024,10 @@
     keccak "3.0.2"
     protobufjs "7.2.4"
 
-"@multiversx/sdk-core@13.5.0":
-  version "13.5.0"
-  resolved "https://registry.yarnpkg.com/@multiversx/sdk-core/-/sdk-core-13.5.0.tgz#e3d97fd92e3da534095ead2164a263e8d8a48482"
-  integrity sha512-J20WHxN7muUDrnGRbDhfgGJJEP1f27gdnSNx/7pa5urY/5z5Zh+a9XedUtJ/OXBcSuTp88ZelUpYFNEdenrJXA==
+"@multiversx/sdk-core@13.7.0":
+  version "13.7.0"
+  resolved "https://registry.yarnpkg.com/@multiversx/sdk-core/-/sdk-core-13.7.0.tgz#7a93fac0057d81b10d2f3eacec1417cf5d3855c8"
+  integrity sha512-79hy6fP1FpSKZ0kmcvLUQ3nbgzWYDt6uVRQS8NejLAw/J8Cgi3QQIOlFx5JvxS7t5cLUzPS7ovftFz1PTJdLuA==
   dependencies:
     "@multiversx/sdk-transaction-decoder" "1.0.2"
     bech32 "1.1.4"
@@ -1036,13 +1036,12 @@
     json-bigint "1.0.0"
     keccak "3.0.2"
 
-"@multiversx/sdk-dapp-form@0.10.11":
-  version "0.10.11"
-  resolved "https://registry.yarnpkg.com/@multiversx/sdk-dapp-form/-/sdk-dapp-form-0.10.11.tgz#9fd164ea4630dd93a8718aff585de8e262176f1d"
-  integrity sha512-hi4A0GPNeThzupKHb7WYSToCTIyBdFcK+8VYRwecunmpjVhWiliBnxITTEyAqTgkO71V8j0/BwSVl0WSU/FzyQ==
+"@multiversx/sdk-dapp-form@0.11.0-alpha.7":
+  version "0.11.0-alpha.7"
+  resolved "https://registry.yarnpkg.com/@multiversx/sdk-dapp-form/-/sdk-dapp-form-0.11.0-alpha.7.tgz#e31361fdf0e11b802e49ad352a2c4c3a7420a8d7"
+  integrity sha512-4C6qjeR8RbqMwaC0zwP2JSqzx7swg0nxk2VVAJv1wy6NlFaI1BOoFCOK8PbqPJM6BuNgoDUAjkp8Ng9hXvUgXw==
   dependencies:
     anchorme "2.1.2"
-    axios "1.6.5"
     bech32 "2.0.0"
     bignumber.js "9.x"
     formik "2.2.9"
@@ -1058,12 +1057,12 @@
     classnames "2.3.2"
     react-select "5.4.0"
 
-"@multiversx/sdk-dapp-sc-explorer@^0.0.1-beta.9":
-  version "0.0.1-beta.9"
-  resolved "https://registry.yarnpkg.com/@multiversx/sdk-dapp-sc-explorer/-/sdk-dapp-sc-explorer-0.0.1-beta.9.tgz#67bac2a0b0e29999b53be26f33faea7a89cae1cb"
-  integrity sha512-b6DVhCs4lGF5DF37gdiYlVmML0yHzFla+9nVB+9z7SD4eEYS+nAm+Ae78uJMiIUjYl+IoDtbI5iSTcWUo7dAUQ==
+"@multiversx/sdk-dapp-sc-explorer@0.0.2-alpha.1":
+  version "0.0.2-alpha.1"
+  resolved "https://registry.yarnpkg.com/@multiversx/sdk-dapp-sc-explorer/-/sdk-dapp-sc-explorer-0.0.2-alpha.1.tgz#160dec0ae26766fd6500d63c392dcbfb58ee749a"
+  integrity sha512-uYos1zUEr/QhbGFVckqT+XFpawq8dql+7kzmAVPmPSlSfFnF170L4NUq4wiYANFZ/1IFt4oXzRNPUOupb5KtEQ==
   dependencies:
-    "@multiversx/sdk-dapp-form" "0.10.11"
+    "@multiversx/sdk-dapp-form" "0.11.0-alpha.7"
     "@multiversx/sdk-network-providers" "2.7.1"
     bignumber.js "9.x"
     formik "2.4.4"
@@ -1083,10 +1082,10 @@
   resolved "https://registry.yarnpkg.com/@multiversx/sdk-dapp-utils/-/sdk-dapp-utils-0.1.0.tgz#3103c2ffc648703e75f96acd229af299cb0840ab"
   integrity sha512-EFvktZ/S1WQ1ie02nnKZHARC4r23JZWwoTFd5py1qi/Z/UoLHIzJ394HLjXFb6gBTsp4wnvNwIXBA/DNrd2Yeg==
 
-"@multiversx/sdk-dapp@2.40.4":
-  version "2.40.4"
-  resolved "https://registry.yarnpkg.com/@multiversx/sdk-dapp/-/sdk-dapp-2.40.4.tgz#324cef474fc77aea77b50af4c2b9223bf6f5903d"
-  integrity sha512-fMARgGxOAvcuEKYsedVC1ASBGmgA8M9TW7sg5j+Zso+4FglEBhewkTfcs5exvHj0VPxU2eNS8Sqg3efxyRSa2Q==
+"@multiversx/sdk-dapp@2.40.9":
+  version "2.40.9"
+  resolved "https://registry.yarnpkg.com/@multiversx/sdk-dapp/-/sdk-dapp-2.40.9.tgz#1d0d3af21a6db7ede5b10318aa0af2b2885211ff"
+  integrity sha512-HUokvZXr+tEjPBwieZ2chnG4HJrGr7XPQTROdskZYttGdpcR5ByRiT8mmfZpQ9UUJjdRie+pEsAfxyuHhdZzXQ==
   dependencies:
     "@lifeomic/axios-fetch" "3.0.1"
     "@metamask/providers" "16.0.0"
@@ -1096,7 +1095,7 @@
     "@multiversx/sdk-metamask-provider" "0.0.5"
     "@multiversx/sdk-native-auth-client" "1.0.7"
     "@multiversx/sdk-opera-provider" "1.0.0-alpha.1"
-    "@multiversx/sdk-passkey-provider" "1.0.5"
+    "@multiversx/sdk-passkey-provider" "1.0.9"
     "@multiversx/sdk-wallet" "4.2.0"
     "@multiversx/sdk-wallet-connect-provider" "4.1.3"
     "@multiversx/sdk-web-wallet-cross-window-provider" "1.0.0"
@@ -1178,13 +1177,14 @@
   resolved "https://registry.yarnpkg.com/@multiversx/sdk-opera-provider/-/sdk-opera-provider-1.0.0-alpha.1.tgz#2beebd5423fdc2e667b33660f17cbff325449097"
   integrity sha512-5hrqn+kNpuy/S6eV5wh5mE4lvQo0PduZ7fLsh/2Srcaz3K5kM5lE1VyQmWk4DTxToZSldrGbgWz/olezoC6fPg==
 
-"@multiversx/sdk-passkey-provider@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@multiversx/sdk-passkey-provider/-/sdk-passkey-provider-1.0.5.tgz#ca58701fb7d9ce5d8f8fa959d1252e65c7e4719b"
-  integrity sha512-wAmaQbMAZaebkrrfklb+SqE22fNyoTtLaxnsVOH76MaVGAAkkx2di2HYdMTpwzBFdfTg6aasKvtU6ScUntto/g==
+"@multiversx/sdk-passkey-provider@1.0.9":
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@multiversx/sdk-passkey-provider/-/sdk-passkey-provider-1.0.9.tgz#2c6824393b49d972295aa2c46d479971b407da9d"
+  integrity sha512-9CNQICB7xPUJYzLKYBLzxTDhiwkcmfCxijnP1otjuQDY4AIKyHctVTXfF0C9WreMs0HlNMzJve81+FonhoPjYA==
   dependencies:
-    "@types/jest" "^29.5.11"
-    short-unique-id "^5.2.0"
+    "@noble/ed25519" "2.1.0"
+    "@types/jest" "29.5.11"
+    short-unique-id "5.2.0"
 
 "@multiversx/sdk-transaction-decoder@1.0.2":
   version "1.0.2"
@@ -1318,6 +1318,11 @@
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/@noble/ed25519/-/ed25519-1.7.3.tgz#57e1677bf6885354b466c38e2b620c62f45a7123"
   integrity sha512-iR8GBkDt0Q3GyaVcIu7mSsVIqnFbkbRzGLWlvhwunacoLwt4J3swfKhfaM6rN6WY+TBGoYT1GtT1mIh2/jGbRQ==
+
+"@noble/ed25519@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@noble/ed25519/-/ed25519-2.1.0.tgz#4bf661de9ee0ad775d41fcacbfc9aeec491f459c"
+  integrity sha512-KM4qTyXPinyCgMzeYJH/UudpdL+paJXtY3CHtHYZQtBkS8MZoPr4rOikZllIutJe0d06QDQKisyn02gxZ8TcQA==
 
 "@noble/hashes@1.3.0":
   version "1.3.0"
@@ -1945,6 +1950,14 @@
   integrity sha512-pk2B1NWalF9toCRu6gjBzR69syFjP4Od8WRAX+0mmf9lAjCRicLOWc+ZrxZHx/0XRjotgkF9t6iaMJ+aXcOdZQ==
   dependencies:
     "@types/istanbul-lib-report" "*"
+
+"@types/jest@29.5.11":
+  version "29.5.11"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-29.5.11.tgz#0c13aa0da7d0929f078ab080ae5d4ced80fa2f2c"
+  integrity sha512-S2mHmYIVe13vrm6q4kN6fLYYAka15ALQki/vgDC3mIukEOx8WJlv0kQPM+d4w8Gp6u0uSdKND04IlTXBv0rwnQ==
+  dependencies:
+    expect "^29.0.0"
+    pretty-format "^29.0.0"
 
 "@types/jest@29.5.5":
   version "29.5.5"
@@ -7807,7 +7820,7 @@ shelljs@^0.8.5:
     interpret "^1.0.0"
     rechoir "^0.6.2"
 
-short-unique-id@^5.2.0:
+short-unique-id@5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/short-unique-id/-/short-unique-id-5.2.0.tgz#a7e0668e0a8998d3151f27a36cf046055b1f270b"
   integrity sha512-cMGfwNyfDZ/nzJ2k2M+ClthBIh//GlZl1JEf47Uoa9XR11bz8Pa2T2wQO4bVrRdH48LrIDWJahQziKo3MjhsWg==

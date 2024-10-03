@@ -1,5 +1,8 @@
 'use client';
 import { useEffect } from 'react';
+
+import { InterpretedTransactionType } from '@multiversx/sdk-dapp/types';
+
 import { OutputContainer, TransactionRow } from '@/components';
 import { useGetActiveTransactionsStatus } from '@/hooks';
 import { useGetTransactions } from './hooks';
@@ -53,7 +56,7 @@ export const Transactions = (props: TransactionsPropsType) => {
                 <TransactionRow
                   key={transaction.txHash}
                   className='mx-transactions text-gray-500'
-                  transaction={transaction}
+                  transaction={transaction as InterpretedTransactionType}
                 />
               ))}
             </tbody>
