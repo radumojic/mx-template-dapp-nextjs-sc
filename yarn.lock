@@ -1038,10 +1038,10 @@
     keccak "3.0.2"
     protobufjs "7.2.4"
 
-"@multiversx/sdk-core@13.5.0":
-  version "13.5.0"
-  resolved "https://registry.yarnpkg.com/@multiversx/sdk-core/-/sdk-core-13.5.0.tgz#e3d97fd92e3da534095ead2164a263e8d8a48482"
-  integrity sha512-J20WHxN7muUDrnGRbDhfgGJJEP1f27gdnSNx/7pa5urY/5z5Zh+a9XedUtJ/OXBcSuTp88ZelUpYFNEdenrJXA==
+"@multiversx/sdk-core@13.7.0":
+  version "13.7.0"
+  resolved "https://registry.yarnpkg.com/@multiversx/sdk-core/-/sdk-core-13.7.0.tgz#7a93fac0057d81b10d2f3eacec1417cf5d3855c8"
+  integrity sha512-79hy6fP1FpSKZ0kmcvLUQ3nbgzWYDt6uVRQS8NejLAw/J8Cgi3QQIOlFx5JvxS7t5cLUzPS7ovftFz1PTJdLuA==
   dependencies:
     "@multiversx/sdk-transaction-decoder" "1.0.2"
     bech32 "1.1.4"
@@ -1096,10 +1096,10 @@
   resolved "https://registry.yarnpkg.com/@multiversx/sdk-dapp-utils/-/sdk-dapp-utils-0.1.0.tgz#3103c2ffc648703e75f96acd229af299cb0840ab"
   integrity sha512-EFvktZ/S1WQ1ie02nnKZHARC4r23JZWwoTFd5py1qi/Z/UoLHIzJ394HLjXFb6gBTsp4wnvNwIXBA/DNrd2Yeg==
 
-"@multiversx/sdk-dapp@2.40.8":
-  version "2.40.8"
-  resolved "https://registry.yarnpkg.com/@multiversx/sdk-dapp/-/sdk-dapp-2.40.8.tgz#b93cc4aec836e66c97f6298c1e105074dc5db19f"
-  integrity sha512-bdawxu34BmVG6GHRd+ZvADLkEI2Vx99zsV8/YvlYd6dmWV37eA7rBDfeEXLUnyWNMtSpbxt7jkWR0R8YSOacrw==
+"@multiversx/sdk-dapp@2.40.9":
+  version "2.40.9"
+  resolved "https://registry.yarnpkg.com/@multiversx/sdk-dapp/-/sdk-dapp-2.40.9.tgz#1d0d3af21a6db7ede5b10318aa0af2b2885211ff"
+  integrity sha512-HUokvZXr+tEjPBwieZ2chnG4HJrGr7XPQTROdskZYttGdpcR5ByRiT8mmfZpQ9UUJjdRie+pEsAfxyuHhdZzXQ==
   dependencies:
     "@lifeomic/axios-fetch" "3.0.1"
     "@metamask/providers" "16.0.0"
