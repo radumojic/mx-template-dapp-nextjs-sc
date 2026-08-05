@@ -5,6 +5,8 @@ export enum ItemsIdentifiersEnum {
   signMessage = 'sign-message',
   nativeAuth = 'native-auth',
   batchTransactions = 'batch-transactions',
+  smartContractDefaultUi = 'smart-contract-default-ui',
+  smartContractUi = 'smart-contract-ui',
   transactionsAll = 'transactions-all',
   transactionsPingPong = 'transactions-ping-pong'
 }

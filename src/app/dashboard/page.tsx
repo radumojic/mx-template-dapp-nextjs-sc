@@ -1,5 +1,6 @@
 'use client';
 import classNames from 'classnames';
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 
 import { contractAddress } from '@/config';
@@ -16,6 +17,24 @@ import {
   Transactions
 } from './widgets';
 import { ItemsIdentifiersEnum } from './dashboard.types';
+
+// sdk-dapp-sc-explorer is browser only (it reads `document` on import), so both
+// Smart Contract UI widgets are loaded client side.
+const SmartContractDefaultUI = dynamic(
+  () =>
+    import('@/components/SmartContractDefaultUI').then(
+      (module) => module.SmartContractDefaultUI
+    ),
+  { ssr: false }
+);
+
+const SmartContractUI = dynamic(
+  () =>
+    import('@/components/SmartContractUI').then(
+      (module) => module.SmartContractUI
+    ),
+  { ssr: false }
+);
 
 // prettier-ignore
 const styles = {
@@ -72,6 +91,22 @@ const dashboardWidgets: WidgetType[] = [
       'For complex scenarios transactions can be sent in the desired group/sequence',
     reference:
       'https://github.com/multiversx/mx-sdk-dapp#sending-transactions-synchronously-in-batches'
+  },
+  {
+    title: 'Smart Contract UI (Default)',
+    widget: () => <SmartContractDefaultUI />,
+    description:
+      'Contract endpoints rendered entirely by the sdk-dapp-sc-explorer container',
+    reference: 'https://github.com/multiversx/mx-sdk-dapp-sc-explorer',
+    anchor: ItemsIdentifiersEnum.smartContractDefaultUi
+  },
+  {
+    title: 'Smart Contract UI (Custom)',
+    widget: () => <SmartContractUI />,
+    description:
+      'Contract endpoints rendered with custom components built on the sdk-dapp-sc-explorer context',
+    reference: 'https://github.com/multiversx/mx-sdk-dapp-sc-explorer',
+    anchor: ItemsIdentifiersEnum.smartContractUi
   },
   {
     title: 'Transactions (All)',

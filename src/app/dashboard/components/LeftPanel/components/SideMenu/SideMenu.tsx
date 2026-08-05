@@ -1,9 +1,11 @@
 import {
   faChevronUp,
+  faFileCode,
   faFilter,
   faFingerprint,
   faPenNib,
   faRectangleList,
+  faSliders,
   faTableTennisPaddleBall,
   IconDefinition
 } from '@fortawesome/free-solid-svg-icons';
@@ -69,6 +71,16 @@ const menuItems: MenuItemsType[] = [
     title: 'Batch Transactions',
     icon: batchIcon,
     id: ItemsIdentifiersEnum.batchTransactions
+  },
+  {
+    title: 'Smart Contract UI (Default)',
+    icon: faFileCode,
+    id: ItemsIdentifiersEnum.smartContractDefaultUi
+  },
+  {
+    title: 'Smart Contract UI (Custom)',
+    icon: faSliders,
+    id: ItemsIdentifiersEnum.smartContractUi
   },
   {
     title: 'Transactions (All)',

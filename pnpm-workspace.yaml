@@ -14,3 +14,9 @@ allowBuilds:
   utf-8-validate: false
 minimumReleaseAgeExclude:
   - '@multiversx/*'
+overrides:
+  # sdk-dapp-form (via sdk-dapp-sc-explorer) pins react-tooltip 5.7.2, whose ESM
+  # bundle inlines React dev internals and crashes on load under Next 16 with
+  # "Cannot read properties of undefined (reading 'ReactDebugCurrentFrame')".
+  # Later 5.x releases dropped that vendored code.
+  react-tooltip: 5.29.1

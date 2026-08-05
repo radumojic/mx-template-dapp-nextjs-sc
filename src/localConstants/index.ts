@@ -6,3 +6,4 @@ export * from './routes';
 export * from './installExtensionsLinks';
 export * from './browser.enum';
 export * from './dashboard';
+export * from './scExplorer';

@@ -62,9 +62,23 @@ All imports from MultiversX SDK packages are funneled through `src/lib` rather t
 
 App Router pages: `/` (home), `/dashboard`, `/unlock`, `/logout`, `/disclaimer`. Route name constants live in `src/localConstants/routes`.
 
+`/` and `/unlock` live inside the `(home)` route group (`src/app/(home)/page.tsx`, `src/app/(home)/unlock/page.tsx`) and share `src/app/(home)/layout.tsx` — the group name is not part of the URL. `src/app/index.tsx` (the `App` client wrapper) and `src/app/transaction.tsx` are *not* routes despite living in `src/app`.
+
 ### Dashboard widgets (`src/app/dashboard/widgets`)
 
 Each feature is a self-contained widget (PingPongAbi, PingPongRaw, PingPongService, Transactions, SignMessage, NativeAuth, BatchTransactions). Widgets follow a folder pattern: `Widget.tsx` + local `hooks/`, `types/`, `helpers/`, each with its own `index.ts` barrel and colocated `tests/`. The three PingPong widgets demonstrate three ways to call the same contract (raw data, ABI via sdk-core, service abstraction).
+
+### Generic SC UI (`sdk-dapp-sc-explorer`)
+
+`src/components/SmartContractDefaultUI` and `src/components/SmartContractUI` render the Ping-Pong ABI as a generic endpoint explorer, using `@multiversx/sdk-dapp-sc-explorer`. The first mounts the package's own `ScExplorerContainer`; the second mounts only `AppContextProvider` and rebuilds the endpoint list with local components (`Endpoints` / `EndpointMutate` / `EndpointMutateForm`) — the template's example of customizing the generated UI. Both are dashboard widgets. Shared pieces: `useGetSmartContractDetails` (`src/hooks`), `useGetScExplorerNetworkConfig` (builds the `networkConfig`/entrypoint the providers require), and `scExplorerClassNames` (`src/localConstants`, the Tailwind overrides).
+
+Three rules when touching this area:
+
+- **The package is browser-only** — it reads `document` on import. It must never enter a server-rendered module graph: it is *not* re-exported from the `@/lib` or `@/components` barrels, and the dashboard mounts both widgets via `next/dynamic(..., { ssr: false })`. Importing them through a barrel reintroduces `document is not defined` / `createContext is not a function` at build time.
+- SDK symbols still go through the lib layer, but via the **sub-path** `@/lib/sdkDappScExplorer` (files carry `'use client'`), never `@multiversx/sdk-dapp-sc-explorer/out/...` directly in app code.
+- Mutations use the template's own `signAndSendTransactions` (`src/helpers`), not the package's `sendAndTrackTransactions`. Note `getCallContractTransaction` is **async** in this version.
+
+Version pin: 0.0.7-beta.2. 0.0.7-beta.1 does not build here — it imports `MvxUnlockButton`, which no published `sdk-dapp-ui` 0.1.x exports.
 
 ### Custom provider
 

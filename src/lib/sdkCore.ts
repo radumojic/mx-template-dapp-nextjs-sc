@@ -3,8 +3,10 @@ export {
   Address,
   AddressValue,
   ContractFunction,
+  EndpointDefinition,
   Message,
   MessageComputer,
+  NativeSerializer,
   ProxyNetworkProvider,
   SmartContractController,
   SmartContractTransactionsFactory,
@@ -14,6 +16,7 @@ export {
   TransactionComputer,
   TransactionsFactoryConfig,
   TransferTransactionsFactory,
+  TypedValue,
   UserSecretKey,
   UserSigner
 } from '@multiversx/sdk-core';
