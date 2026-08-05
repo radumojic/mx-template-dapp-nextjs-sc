@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { API_URL } from '@/config';
-import { Transaction } from '@/types/sdkCoreTypes';
+import { Transaction } from '@/lib';
+import { PingPongServiceTransactionType } from '../types';
 
 export const useGetPongTransaction = () => {
   return async () => {
     try {
-      const { data } = await axios.post<Transaction>(
+      const response = await axios.post<PingPongServiceTransactionType>(
         '/ping-pong/abi/pong',
         {},
         {
@@ -13,7 +14,9 @@ export const useGetPongTransaction = () => {
         }
       );
 
-      return data;
+      const pongTransaction = Transaction.newFromPlainObject(response.data);
+
+      return pongTransaction;
     } catch (err) {
       console.error('Unable to get Pong Transaction', err);
       return null;

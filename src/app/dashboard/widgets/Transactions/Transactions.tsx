@@ -1,19 +1,22 @@
-'use client';
 import { useEffect } from 'react';
 
-import { InterpretedTransactionType } from '@multiversx/sdk-dapp/types';
+import { OutputContainer, TransactionsTable } from '@/components';
+import { getActiveTransactionsStatus } from '@/lib';
 
-import { OutputContainer, TransactionRow } from '@/components';
-import { useGetActiveTransactionsStatus } from '@/hooks';
 import { useGetTransactions } from './hooks';
 import { TransactionsPropsType } from './types';
 
-const COLUMNS = ['TxHash', 'Age', 'Shard', 'From', 'To', 'Method', 'Value'];
+// prettier-ignore
+const styles = {
+  transactionsContainer: 'transactions-container flex flex-col border border-secondary rounded-xl transition-all duration-200 ease-out',
+  transactionsTable: 'transactions-table w-full h-full overflow-x-auto shadow rounded-lg'
+} satisfies Record<string, string>;
 
 export const Transactions = (props: TransactionsPropsType) => {
-  const { success } = useGetActiveTransactionsStatus();
   const { isLoading, getTransactions, transactions } =
     useGetTransactions(props);
+
+  const { success } = getActiveTransactionsStatus();
 
   useEffect(() => {
     if (success) {
@@ -28,39 +31,16 @@ export const Transactions = (props: TransactionsPropsType) => {
   if (!isLoading && transactions.length === 0) {
     return (
       <OutputContainer>
-        <p className='text-gray-400'>No transactions found</p>
+        <p>No transactions found</p>
       </OutputContainer>
     );
   }
 
   return (
-    <div className='flex flex-col'>
+    <div id={props.id} className={styles.transactionsContainer}>
       <OutputContainer isLoading={isLoading} className='p-0'>
-        <div className='w-full h-full overflow-x-auto bg-white shadow rounded-lg'>
-          <table className='w-full divide-y divide-gray-200 overflow-auto table-auto'>
-            <thead className='bg-gray-50'>
-              <tr>
-                {COLUMNS.map((column) => (
-                  <th
-                    key={column}
-                    scope='col'
-                    className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6'
-                  >
-                    {column}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className='bg-white divide-y divide-gray-200'>
-              {transactions.map((transaction) => (
-                <TransactionRow
-                  key={transaction.txHash}
-                  className='mx-transactions text-gray-500'
-                  transaction={transaction as InterpretedTransactionType}
-                />
-              ))}
-            </tbody>
-          </table>
+        <div className={styles.transactionsTable}>
+          <TransactionsTable transactions={transactions} />
         </div>
       </OutputContainer>
     </div>
