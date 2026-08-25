@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
 import axios from 'axios';
 import { useGetPingTransaction } from '../useGetPingTransaction';
+import { expect } from '@jest/globals';
 
 const pingTransaction = {
   nonce: 10705,
@@ -23,7 +24,9 @@ describe('useGetPingTransaction', () => {
     const { result } = renderHook(() => useGetPingTransaction());
     const transactionReceived = await result.current();
 
-    expect(transactionReceived).toBe(pingTransaction);
+    // The hook parses the API payload into a sdk-core Transaction instance,
+    // so compare the serialized form rather than object identity.
+    expect(transactionReceived?.toPlainObject()).toEqual(pingTransaction);
   });
 
   it('should return null', async () => {

@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
 import axios from 'axios';
 import { useGetPongTransaction } from '../useGetPongTransaction';
+import { expect } from '@jest/globals';
 
 const pongTransaction = {
   nonce: 10702,
@@ -14,7 +15,15 @@ const pongTransaction = {
   version: 1
 };
 
+jest.mock('@/config', () => ({
+  API_URL: 'https://devnet-template-api.multiversx.com'
+}));
+
 describe('useGetPongTransaction', () => {
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   it('should return Pong transaction', async () => {
     jest.spyOn(axios, 'post').mockResolvedValueOnce({
       data: pongTransaction
@@ -23,7 +32,9 @@ describe('useGetPongTransaction', () => {
     const { result } = renderHook(() => useGetPongTransaction());
     const transactionReceived = await result.current();
 
-    expect(transactionReceived).toBe(pongTransaction);
+    // The hook parses the API payload into a sdk-core Transaction instance,
+    // so compare the serialized form rather than object identity.
+    expect(transactionReceived?.toPlainObject()).toEqual(pongTransaction);
   });
 
   it('should return null', async () => {

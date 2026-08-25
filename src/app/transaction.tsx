@@ -1,14 +1,20 @@
-import { useGetNetworkConfig } from '@/hooks';
-import { ExplorerLink } from '@/components/sdkDappComponents';
-import { TRANSACTIONS_ENDPOINT } from '@multiversx/sdk-dapp/apiCalls/endpoints';
+'use client';
+import { useGetNetworkConfig, MvxExplorerLink, getExplorerLink } from '@/lib';
 import { getTransactionUrl, useTransactionOutcome } from '@/helpers';
 import { Label } from '@/components/Label';
+import { TRANSACTIONS_ENDPOINT } from '@/localConstants';
 
 export const Transaction = () => {
   const { network } = useGetNetworkConfig();
   const transactionUrl = getTransactionUrl(network.walletAddress);
 
   const txData = useTransactionOutcome();
+
+  const explorerAddress = network.explorerAddress;
+  const explorerLink = getExplorerLink({
+    to: `/${TRANSACTIONS_ENDPOINT}/${txData.txHash}`,
+    explorerAddress
+  });
 
   return (
     <div className='flex flex-col gap-2 text-sm'>
@@ -31,12 +37,12 @@ export const Transaction = () => {
       {txData.txHash && (
         <p>
           <Label>Hash:</Label>
-          <ExplorerLink
-            page={`/${TRANSACTIONS_ENDPOINT}/${txData.txHash}`}
-            className='border-b border-dotted border-gray-500 hover:border-solid hover:border-gray-800'
+          <MvxExplorerLink
+            link={explorerLink}
+            class='border-b border-dotted border-gray-500 hover:border-solid hover:border-gray-800 text-green-700'
           >
             {txData.txHash}
-          </ExplorerLink>
+          </MvxExplorerLink>
         </p>
       )}
     </div>

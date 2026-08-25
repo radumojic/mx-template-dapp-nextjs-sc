@@ -1,41 +1,34 @@
-import { newTransaction } from '@/helpers/sdkDappHelpers';
+import BigNumber from 'bignumber.js';
 import {
-  DECIMALS,
-  EXTRA_GAS_LIMIT_GUARDED_TX,
-  GAS_LIMIT,
-  GAS_PRICE,
-  VERSION
-} from '@/localConstants/sdkDappConstants';
-import { TransactionProps } from '@/types/transaction.types';
-import { Transaction } from '@/types/sdkCoreTypes';
-import { TokenTransfer } from '@/utils/sdkDappCore';
+  Address,
+  Transaction,
+  TransactionsFactoryConfig,
+  TransferTransactionsFactory
+} from '@/lib';
+import { TransactionProps } from '@/types';
 
 const NUMBER_OF_TRANSACTIONS = 5;
 
-export const getBatchTransactions = ({
+export const getBatchTransactions = async ({
   address,
-  nonce,
   chainID
-}: TransactionProps): Transaction[] => {
+}: TransactionProps): Promise<Transaction[]> => {
   const transactions = Array.from(Array(NUMBER_OF_TRANSACTIONS).keys());
 
-  return transactions.map((id) => {
-    const amount = TokenTransfer.fungibleFromAmount(
-      '',
-      id + 1,
-      DECIMALS
-    ).toString();
+  const factoryConfig = new TransactionsFactoryConfig({ chainID });
+  const factory = new TransferTransactionsFactory({ config: factoryConfig });
 
-    return newTransaction({
-      sender: address,
-      receiver: address,
-      data: `batch-tx-${id + 1}`,
-      value: amount,
-      chainID,
-      gasLimit: GAS_LIMIT + EXTRA_GAS_LIMIT_GUARDED_TX,
-      gasPrice: GAS_PRICE,
-      nonce,
-      version: VERSION
-    });
-  });
+  return Promise.all(
+    transactions.map((id) =>
+      factory.createTransactionForNativeTokenTransfer(
+        Address.newFromBech32(address),
+        {
+          receiver: Address.newFromBech32(address),
+          nativeAmount: BigInt(
+            new BigNumber(id).plus(1).shiftedBy(18).toFixed()
+          )
+        }
+      )
+    )
+  );
 };

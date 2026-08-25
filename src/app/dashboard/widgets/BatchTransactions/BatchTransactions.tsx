@@ -1,165 +1,126 @@
 'use client';
-import { useEffect, useState } from 'react';
 import {
+  faArrowsRotate,
   faPaperPlane,
-  faArrowsRotate
+  IconDefinition
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useGetBatches } from '@multiversx/sdk-dapp/hooks/transactions/batch/useGetBatches';
-import { Button } from '@/components/Button';
+import { MvxButton } from '@multiversx/sdk-dapp-ui/react';
+
+import { OutputContainer, TransactionsOutput } from '@/components';
 import {
-  OutputContainer,
-  TransactionsOutput
-} from '@/components/OutputContainer';
-import {
-  useGetAccountInfo,
+  useGetAccount,
   useGetNetworkConfig,
-  useGetPendingTransactions,
-  useIsWebProvider
-} from '@/hooks';
-import { SessionEnum } from '@/localConstants/session';
-import { SignedTransactionType, WidgetProps } from '@/types';
-import { useBatchTransactionContext } from '@/wrappers';
-import { useSendSignedTransactions } from './hooks';
+  useGetPendingTransactions
+} from '@/lib';
+
 import {
-  signWithoutSendingTransactions,
+  sendBatchTransactions,
   signAndAutoSendBatchTransactions,
   swapAndLockTokens
 } from './helpers';
-import { setToSessionStorage } from '@/helpers/sessionStorage';
+import { ItemsIdentifiersEnum } from '../../dashboard.types';
 
-export const BatchTransactions = ({ callbackRoute }: WidgetProps) => {
-  const { setSendBatchTransactionsOnDemand } = useBatchTransactionContext();
-  const { address, account } = useGetAccountInfo();
+// prettier-ignore
+const styles = {
+  batchTx: 'batch-tx flex flex-col gap-6',
+  buttonsContainer: 'buttons-container flex flex-col md:flex-row gap-2 items-start',
+  batchTxButton: 'batch-tx-button text-sm font-normal'
+} satisfies Record<string, string>;
+
+interface BatchTransactionsButtonsType {
+  dataTestId: string;
+  onClickFunction: () => Promise<void>;
+  icon: IconDefinition;
+  label: string;
+}
+
+export const BatchTransactions = () => {
+  const { address, nonce } = useGetAccount();
   const { network } = useGetNetworkConfig();
-  const { batches } = useGetBatches();
-  const { hasPendingTransactions } = useGetPendingTransactions();
-  const { isWebProvider } = useIsWebProvider();
-  const [trackBatchId, setTrackBatchId] = useState(
-    sessionStorage.getItem(SessionEnum.batchId)
-  );
-
-  const [stateTransactions, setStateTransactions] = useState<
-    SignedTransactionType[] | null
-  >(null);
-  const [currentSessionId, setCurrentSessionId] = useState(
-    sessionStorage.getItem(SessionEnum.signedSessionId) || ''
-  );
-
-  const { batchId, setBatchSessionId } = useSendSignedTransactions({
-    signedSessionId: currentSessionId
-  });
-
-  // If manual batch transactions are executed, track the batchId
-  useEffect(() => {
-    if (batchId) {
-      setTrackBatchId(batchId);
-    }
-  }, [batchId]);
-
-  useEffect(() => {
-    if (trackBatchId && batches[trackBatchId]) {
-      setStateTransactions(batches[trackBatchId].transactions.flat());
-    }
-  }, [trackBatchId, batches]);
+  const transactions = useGetPendingTransactions();
+  const hasPendingTransactions = transactions.length > 0;
 
   const executeSignAndAutoSendBatchTransactions = async () => {
-    setSendBatchTransactionsOnDemand(false);
-    if (isWebProvider) {
-      setToSessionStorage(SessionEnum.sendBatchTransactionsOnDemand, 'false');
-    }
-
-    const { batchId } = await signAndAutoSendBatchTransactions({
+    await signAndAutoSendBatchTransactions({
       address,
-      nonce: account.nonce,
+      nonce,
       chainID: network.chainId,
-      callbackRoute
+      transactionsDisplayInfo: {
+        processingMessage: 'Processing batch transactions',
+        errorMessage:
+          'An error has occurred during batch transaction execution',
+        successMessage: 'Batch transactions successful'
+      }
     });
-
-    if (!batchId) {
-      return;
-    }
-
-    setTrackBatchId(batchId);
   };
 
-  const executeSignWithoutSending = async () => {
-    setSendBatchTransactionsOnDemand(true);
-    if (isWebProvider) {
-      setToSessionStorage(SessionEnum.sendBatchTransactionsOnDemand, 'true');
-    }
-
-    const { newBatchSessionId, sessionId } =
-      await signWithoutSendingTransactions({
-        address,
-        nonce: account.nonce,
-        chainID: network.chainId,
-        callbackRoute
-      });
-
-    if (!newBatchSessionId || !sessionId) {
-      return;
-    }
-
-    setBatchSessionId(newBatchSessionId);
-    setCurrentSessionId(sessionId);
+  const executeBatchTransactions = async () => {
+    await sendBatchTransactions({
+      address,
+      nonce,
+      chainID: network.chainId
+    });
   };
 
   const executeSwapAndLockTokens = async () => {
-    setSendBatchTransactionsOnDemand(false);
-    if (isWebProvider) {
-      setToSessionStorage(SessionEnum.sendBatchTransactionsOnDemand, 'false');
-    }
-
-    const { batchId: currentBatchId } = await swapAndLockTokens({
+    await swapAndLockTokens({
       address,
-      nonce: account.nonce,
+      nonce,
       chainID: network.chainId,
-      callbackRoute
+      transactionsDisplayInfo: {
+        processingMessage: 'Processing swap and lock',
+        errorMessage: 'An error has occurred during swap and lock',
+        successMessage: 'Swap and lock successful'
+      }
     });
-
-    if (!currentBatchId) {
-      return;
-    }
-
-    setTrackBatchId(currentBatchId);
   };
 
+  const batchTransactionsButtons: BatchTransactionsButtonsType[] = [
+    {
+      dataTestId: 'sign-auto-send',
+      onClickFunction: executeSignAndAutoSendBatchTransactions,
+      icon: faPaperPlane,
+      label: 'Sign & send batch'
+    },
+    {
+      dataTestId: 'send-transactions',
+      onClickFunction: executeBatchTransactions,
+      icon: faPaperPlane,
+      label: 'Sign batch & controlled sending'
+    },
+    {
+      dataTestId: 'swap-lock',
+      onClickFunction: executeSwapAndLockTokens,
+      icon: faArrowsRotate,
+      label: 'Swap & Lock'
+    }
+  ];
+
   return (
-    <div className='flex flex-col gap-6'>
-      <div className='flex flex-col md:flex-row gap-2 items-start'>
-        <Button
-          data-testid='sign-auto-send'
-          onClick={executeSignAndAutoSendBatchTransactions}
-          disabled={hasPendingTransactions}
-        >
-          <FontAwesomeIcon icon={faPaperPlane} className='mr-1' />
-          Sign & send batch
-        </Button>
-        <Button
-          data-testid='send-transactions'
-          onClick={executeSignWithoutSending}
-          disabled={hasPendingTransactions}
-        >
-          <FontAwesomeIcon icon={faPaperPlane} className='mr-1' />
-          Sign batch & controlled sending
-        </Button>
-
-        <Button
-          data-testid='swap-lock'
-          onClick={executeSwapAndLockTokens}
-          disabled={hasPendingTransactions}
-        >
-          <FontAwesomeIcon icon={faArrowsRotate} className='mr-1' />
-          Swap & Lock
-        </Button>
-      </div>
-
+    <div id={ItemsIdentifiersEnum.batchTransactions} className={styles.batchTx}>
       <OutputContainer>
-        {stateTransactions && (
-          <TransactionsOutput transactions={stateTransactions} />
-        )}
+        <TransactionsOutput transactions={transactions} />
       </OutputContainer>
+
+      <div className={styles.buttonsContainer}>
+        {batchTransactionsButtons.map((button) => (
+          <MvxButton
+            key={button.dataTestId}
+            data-testid={button.dataTestId}
+            onClick={button.onClickFunction}
+            disabled={hasPendingTransactions}
+            size='small'
+          >
+            <FontAwesomeIcon
+              icon={button.icon}
+              className={styles.batchTxButton}
+            />
+
+            <span className={styles.batchTxButton}>{button.label}</span>
+          </MvxButton>
+        ))}
+      </div>
     </div>
   );
 };
